@@ -13,12 +13,12 @@ const OtherWidgetHomeSec = ({ forecast }: any) => {
   const tomorrowPredic = forecast?.list?.find(
     (data: any) =>
       new Date().getDate() + 1 === new Date(data?.dt * 1000).getDate() &&
-      new Date(data?.dt * 1000).getHours() === 1
+      new Date(data?.dt * 1000).getHours() < 2
   );
   const afterTomorrowPredic = forecast?.list?.find(
     (data: any) =>
       new Date().getDate() + 2 === new Date(data?.dt * 1000).getDate() &&
-      new Date(data?.dt * 1000).getHours() === 1
+      new Date(data?.dt * 1000).getHours() < 2
   );
 
   const convertTime = (t: any) => {
@@ -36,9 +36,6 @@ const OtherWidgetHomeSec = ({ forecast }: any) => {
       setIsTime(convertTime(dt));
     }, 1000);
   }, []);
-
-  console.log('tomorrowPredic', tomorrowPredic);
-  console.log('afterTomorrowPredic', afterTomorrowPredic);
 
   return (
     <section className="p-7 bg-[#F7F7F7] space-y-8 over:w-full sm:min-h-auto xl:w-[340px] xl:min-h-[100vh]">

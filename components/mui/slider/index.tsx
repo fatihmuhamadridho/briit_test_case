@@ -36,7 +36,6 @@ export default function SliderMUI({ mainParam }: any) {
         value={mainParam}
         valueLabelDisplay="on"
         valueLabelFormat={(value: any) => {
-          // console.log('value', value);
           if (value < 50) {
             return <div>Good</div>
           } else if (value < 100) {

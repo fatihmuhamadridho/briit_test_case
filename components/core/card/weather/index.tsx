@@ -13,8 +13,6 @@ const WeatherCardCore = ({
   description,
   weatherDetail,
 }: any) => {
-  // console.log("AQIValue", mainParam)
-
   if (mainParam !== null) {
     return (
       <main

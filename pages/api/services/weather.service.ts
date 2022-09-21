@@ -4,7 +4,6 @@ import { APIRoutes } from '@api/api_routes';
 
 export default {
   getWeather: async (location: any) => {
-    // console.log('lat', location.lat);
     try {
       const url =
         APIRoutes.weather.now +

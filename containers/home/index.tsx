@@ -44,11 +44,6 @@ const HomePage = () => {
     }
   }, [dispatch, location]);
 
-  // console.log("weatherState", weatherState);
-  // console.log("airState", airState);
-  // console.log('weatherState', weatherState);
-  // console.log("locationHome", location)
-
   return (
     <LayoutPage>
       <Head>

@@ -10,8 +10,10 @@ const TempHomeSec = ({ forecast }: any) => {
   const tempTomorrow = forecast?.list?.find(
     (data: any) =>
       new Date().getDate() + 1 === new Date(data?.dt * 1000).getDate() &&
-      new Date(data?.dt * 1000).getHours() === 1
+      new Date(data?.dt * 1000).getHours() < 2
   );
+
+  console.log(forecast)
 
   const tempConditionList = [
     {

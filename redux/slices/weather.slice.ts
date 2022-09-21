@@ -3,7 +3,6 @@ import weatherService from "@services/weather.service";
 
 export const weather = {
     now: createAsyncThunk('weather/now', async (location: any) => {
-        // console.log("location", location)
         const res = await weatherService.getWeather(location);
         return res;
     }),
