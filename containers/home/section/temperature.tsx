@@ -54,7 +54,7 @@ const TempHomeSec = ({ forecast }: any) => {
           <TempTodayCore forecast={forecast} />
         </div>
       </div>
-      <div className='flex over:justify-center over:!mb-5 md:justify-start'>
+      <div className='flex w-full over:justify-center over:!mb-5 md:!mb-auto md:max-w-[258px]'>
         <TempTomorrowCore tempTomorrow={tempTomorrow} />
       </div>
     </section>
