@@ -1,37 +1,62 @@
-import NotificationsNoneIcon from '@mui/icons-material/NotificationsNone';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { 
-  faTemperatureHalf,
-  faUmbrella,
-  faWind,
-} from '@fortawesome/free-solid-svg-icons';
+import { faTemperatureHalf, faUmbrella, faWind } from '@fortawesome/free-solid-svg-icons';
+import dynamic from 'next/dynamic';
 
-const TempHomeSec = () => {
+const TempTodayCore = dynamic(() => import('@components/core/card/tempToday'));
+const TempTomorrowCore = dynamic(() => import('@components/core/card/tempTomorrow'));
+
+const TempHomeSec = ({ forecast }: any) => {
+  const tempToday = forecast?.list?.find((data: any, index: any) => index === 0);
+  const tempTomorrow = forecast?.list?.find(
+    (data: any) =>
+      new Date().getDate() + 1 === new Date(data?.dt * 1000).getDate() &&
+      new Date(data?.dt * 1000).getHours() === 1
+  );
+
+  const tempConditionList = [
+    {
+      icon: <FontAwesomeIcon className="w-[21px] h-[21px]" icon={faTemperatureHalf} />,
+      active: tempToday?.weather[0]?.main?.toLowerCase() === '' ? true : false
+    },
+    {
+      icon: <FontAwesomeIcon className="w-[21px] h-[21px]" icon={faUmbrella} />,
+      active: tempToday?.weather[0]?.main?.toLowerCase() === 'rain' ? true : false
+    },
+    {
+      icon: <FontAwesomeIcon className="w-[21px] h-[21px]" icon={faWind} />,
+      active: tempToday?.weather[0]?.main?.toLowerCase() === '' ? true : false
+    }
+  ];
+
   return (
-    <section className="mt-[20px] w-full flex justify-between over:flex-col over:space-y-8 sm:flex-row sm:space-y-0 sm:space-x-4">
+    <section className="mt-[20px] w-full flex justify-between over:flex-col over:space-y-8 md:flex-row md:space-y-0 md:space-x-4">
       <div className="w-full">
-        <header className="w-full flex justify-between over:flex-col sm:flex-row">
+        <header className="w-full flex justify-between over:flex-col over:space-y-4 sm:flex-row sm:space-y-0">
           <div className="w-full text-[26px] font-semibold leading-none space-y-[7px]">
             <h1>How&apos;s the</h1>
             <h1>temperature today?</h1>
           </div>
           <div className="flex items-center space-x-3">
-            <span className="p-3 bg-[#F97F29] flex rounded-[14px]">
-              <FontAwesomeIcon className="w-[21px] h-[21px] text-[white]" icon={faTemperatureHalf} />
-            </span>
-            <span className="p-3 bg-[white] flex rounded-[14px]">
-              <FontAwesomeIcon className="w-[21px] h-[21px] text-[black]" icon={faUmbrella} />
-            </span>
-            <span className="p-3 bg-[white] flex rounded-[14px]">
-              <FontAwesomeIcon className="w-[21px] h-[21px] text-[black]" icon={faWind} />
-            </span>
+            {tempConditionList.map((temp: any, index: any) => {
+              return (
+                <span
+                  key={index}
+                  className={`p-3 ${
+                    temp.active === true ? 'bg-[#F97F29] text-[white]' : 'bg-[white] text-[black]'
+                  } flex rounded-[14px]`}>
+                  {temp.icon}
+                </span>
+              );
+            })}
           </div>
         </header>
-        <div>
-          <h1>CHART</h1>
+        <div className="mt-[27px] w-full">
+          <TempTodayCore forecast={forecast} />
         </div>
       </div>
-      <div className="w-full h-[280px] bg-[#F7F7F7] border-[1px] rounded-[20px] sm:max-w-[258px]"></div>
+      <div className='flex over:justify-center over:!mb-5 md:justify-start'>
+        <TempTomorrowCore tempTomorrow={tempTomorrow} />
+      </div>
     </section>
   );
 };
